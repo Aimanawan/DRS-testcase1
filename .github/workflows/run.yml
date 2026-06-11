@@ -3,6 +3,10 @@ name: Manual Selenium Run with OTP
 on:
   workflow_dispatch:
     inputs:
+      imei_input:
+        description: 'Yahan apni IMEI enter karein'
+        required: true
+        default: '990017412593838'
       otp_input:
         description: 'Phone pe aaya naya OTP enter karein'
         required: true
@@ -24,6 +28,7 @@ jobs:
         
     - name: Run Script
       env:
+        MY_IMEI: ${{ github.event.inputs.imei_input }}
         MY_OTP: ${{ github.event.inputs.otp_input }}
       run: |
         pytest -s DRS_test1.py
