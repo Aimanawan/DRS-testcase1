@@ -1,0 +1,29 @@
+name: Manual Selenium Run with OTP
+
+on:
+  workflow_dispatch:
+    inputs:
+      otp_input:
+        description: 'Phone pe aaya naya OTP enter karein'
+        required: true
+
+jobs:
+  run-selenium:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+        
+    - name: Install Dependencies
+      run: |
+        pip install selenium pytest
+        
+    - name: Run Script
+      env:
+        MY_OTP: ${{ github.event.inputs.otp_input }}
+      run: |
+        pytest -s PTA_test1.py
