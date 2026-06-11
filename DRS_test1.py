@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 
 class TestTESTCASE1():
     def setup_method(self, method):
+        # Server environment ke liye Headless Chrome configure karna
         from selenium.webdriver.chrome.options import Options
         chrome_options = Options()
         chrome_options.add_argument("--headless")
@@ -20,16 +21,20 @@ class TestTESTCASE1():
         self.driver.quit()
   
     def test_tESTCASE1(self):
+        # 1. Open Website
         self.driver.get("https://drsstaging.pta.gov.pk/drs-git/drs-revamp-client/")
         self.driver.set_window_size(697, 728)
         
+        # 2. Click Section & Input IMEI
         self.driver.find_element(By.CSS_SELECTOR, ".col-lg-4:nth-child(1) .card-title").click()
         self.driver.find_element(By.ID, "imei_1").click()
         self.driver.find_element(By.ID, "imei_1").send_keys("990017412593838")
         
+        # 3. Click Success & Trigger OTP Field
         self.driver.find_element(By.CSS_SELECTOR, ".btn-success").click()
         self.driver.find_element(By.ID, "otp").click()
         
+        # 4. Environment variable se OTP read karna
         jenkins_otp = os.environ.get("MY_OTP", "")
         
         if jenkins_otp:
