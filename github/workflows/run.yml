@@ -26,4 +26,4 @@ jobs:
       env:
         MY_OTP: ${{ github.event.inputs.otp_input }}
       run: |
-        pytest -s PTA_test1.py
+        pytest -s DRS_test1.py
